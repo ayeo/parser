@@ -17,11 +17,11 @@ Of course you may use object instead of primitive array
 
 ```php
 $parser = new Parser;
-$string = "Hello {{customer.name}}!";
 
 $customer = new Customer;
 $customer->name = 'Nikola Tesla';
 
+$string = "Hello {{customer.name}}!";
 $parser->parse($string, ['customer' => $customer]); //returns: Hello Nikola!
 ```
 
@@ -31,12 +31,12 @@ It also supports nested objects as well
 
 ```php
 $parser = new Parser;
-$string = "{{customer.address.street}}";
 
 $customer = new Customer;
-$customer->setAddress(new Address('Green Alley', 12, 'London', 'LN4 4GD', 'United Kingdom'));
-$customer->name = 'Nikola Tesla';
+$address = new Address('Green Alley', 12, 'London', 'LN4 4GD', 'United Kingdom');
+$customer->setAddress($address);
 
+$string = "{{customer.address.street}}";
 $parser->parse($string, ['customer' => $customer]); //returns: Green Alley
 ```
 
