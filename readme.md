@@ -1,7 +1,6 @@
 [![Build Status](http://img.shields.io/travis/ayeo/parser.svg?style=flat-square)](https://travis-ci.org/ayeo/parser)
 [![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/ayeo/parser.svg?style=flat-square)](https://scrutinizer-ci.com/g/ayeo/parser/build-status/master)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](license.md)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/ayeo/parser/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/ayeo/parser/?branch=master)
 
 # Simple placeholder parser
 
