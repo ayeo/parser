@@ -45,7 +45,7 @@ $string = "{{customer.address.street}}";
 $parser->parse($string, ['customer' => $customer]); //returns: Green Alley
 ```
 
-Nested array is also welcome
+Nested array are also welcome
 
 ```php
 $parser = new Parser();
