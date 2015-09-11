@@ -15,7 +15,7 @@ Let's take a look at the simplest possible example:
 ```php
 $parser = new Parser;
 $string = "Hello {{name}}!";
-$parser->parse($string, ['name' => 'Nikola Tesla']); //returns: Hello Nikola!
+$parser->parse($string, ['name' => 'Nikola Tesla']); //returns: Hello Nikola Tesla!
 ```
 
 Of course you may use object instead of primitive array
@@ -27,7 +27,7 @@ $customer = new Customer;
 $customer->name = 'Nikola Tesla';
 
 $string = "Hello {{customer.name}}!";
-$parser->parse($string, ['customer' => $customer]); //returns: Hello Nikola!
+$parser->parse($string, ['customer' => $customer]); //returns: Hello Nikola Tesla!
 ```
 
 Parser is smart enough to access private properties using getters.
