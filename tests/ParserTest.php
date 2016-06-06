@@ -1,6 +1,8 @@
 <?php
 namespace Ayeo\Parser\Test;
 
+//todo: test undefinied index!
+//todo: multi occurence of same pattern
 //todo: simplify imports (mocks)
 use Ayeo\Parser\Parser;
 use Ayeo\Parser\Test\Mock\Customer;
@@ -107,8 +109,56 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Nikola Tesla is great inventor!', $parsedBody);
     }
 
-    //todo: test undefinied index!
-    //todo: multi occurence of same pattern
+    public function testEmbrace()
+    {
+        $parser = new Parser();
+        $parser->setEmbraceStrings("{", "}");
+        $template = "{text} is great {text2}!";
+        $parsedBody = $parser->parse($template, ["text" => "Albert", "text2" => "scientist"]);
+        $this->assertEquals('Albert is great scientist!', $parsedBody);
+    }
 
+    public function testEmbraceWithSameOpenClose()
+    {
+        $parser = new Parser();
+        $parser->setEmbraceStrings("***", "***");
+        $template = "***text*** is great ***text2***!";
+        $parsedBody = $parser->parse($template, ["text" => "Albert", "text2" => "scientist"]);
+        $this->assertEquals('Albert is great scientist!', $parsedBody);
+    }
 
+    /**
+     * @expectedException \LogicException
+     * @expectedExceptionMessage Open delimiter must not contain # char
+     */
+    public function testEmbraceWithHashChar()
+    {
+        $parser = new Parser();
+        $parser->setEmbraceStrings("#", "#");
+        $template = "#text# is great #text2#!";
+        $parsedBody = $parser->parse($template, ["text" => "Albert", "text2" => "scientist"]);
+        $this->assertEquals('Albert is great scientist!', $parsedBody);
+    }
+
+    /**
+     * @expectedException \LogicException
+     * @expectedExceptionMessage Close delimiter must not contain # char
+     */
+    public function testEmbraceWithHashCharAsClose()
+    {
+        $parser = new Parser();
+        $parser->setEmbraceStrings("{{", "#");
+        $template = "#text# is great #text2#!";
+        $parsedBody = $parser->parse($template, ["text" => "Albert", "text2" => "scientist"]);
+        $this->assertEquals('Albert is great scientist!', $parsedBody);
+    }
+
+    public function testSetDefaultEmbrace()
+    {
+        $parser = new Parser();
+        $parser->setEmbraceStrings("{{", "}}");
+        $template = "All {{fruit}} are {{color}}.";
+        $parsedBody = $parser->parse($template, ["fruit" => "oranges", "color" => "orange"]);
+        $this->assertEquals('All oranges are orange.', $parsedBody);
+    }
 }

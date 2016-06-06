@@ -53,6 +53,23 @@ $data = ['user' =>  ['supervisor' => ['name' => 'Harry']]];
 $parser->parse('Hi {{user.supervisor.name}}!', $data); //returns: Hi Harry!
 ```
 
+
+Use custom embrace string
+=========================
+
+By default Parser uses "{{" as open string and "}}" as close string. You can set your own embrace strings using method
+```php
+$parser = new Parser();
+$parser->setEmbraceStrings("*", "*");
+$parser->parse("All *fruit* are *color*.", ["fruit" => "oranges", "color" => "orange"]);
+//returns "All oranges are orange."
+```
+or using constructor
+```php
+$parser = new Parser("", "*", "*");
+```
+Note, embrace strings can not contains # char. 
+
 Formatting
 ==========
 
